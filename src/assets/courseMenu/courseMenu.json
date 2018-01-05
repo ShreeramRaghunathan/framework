@@ -1,0 +1,41 @@
+{
+    "topics":[{
+        "name": "Overview",
+        "expand": true,
+        "pages": [{
+            "id": 1,
+            "name": "s1",
+            "screenType": "static",
+            "isAudio": true,
+            "delay": 1000
+        },
+        {
+            "id": 2,
+            "name": "s2",
+            "screenType": "static",
+            "isAudio": true,
+            "delay": 1000
+        }
+        ]
+    },
+    {
+        "name": "Working Together and With Others",
+        "expand": true,
+        "pages": [{
+            "id": 1,
+            "name": "s1",
+            "screenType": "static",
+            "isAudio": true,
+            "delay": 1000
+        },
+        {
+            "id": 2,
+            "name": "s2",
+            "screenType": "static",
+            "isAudio": true,
+            "delay": 1000
+        }
+        ]
+    }
+    ]
+}

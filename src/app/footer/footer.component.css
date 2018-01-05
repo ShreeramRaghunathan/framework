@@ -1,0 +1,5 @@
+.btnDisabled {
+    pointer-events:none !important;
+    opacity:0.5 !important;
+    /*color: red !important;*/
+}

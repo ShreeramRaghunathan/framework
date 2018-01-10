@@ -1,8 +1,8 @@
 <nav class="navbar navbar-default">
   <div class="container">
       <ul class="nav navbar-nav navbar-right">
-          <li class="nav-link"><a name="BackBtn" id="BackBtn" (click)="onBackHandler($event)" [ngClass]="{'btnDisabled':isBackBtnActive}">Back</a></li>
-          <li class="nav-link"><a name="NextBtn" id="NextBtn" (click)="onNextHandler($event)" [ngClass]="{'btnDisabled':isNextBtnActive}">Next</a></li>
+          <li class="nav-link"><a name="BackBtn" id="BackBtn" (click)="onBackHandler($event)" [ngClass]="{'btnDisabled':data.isPrevButtonDisabled}">Back</a></li>
+          <li class="nav-link"><a name="NextBtn" id="NextBtn" (click)="onNextHandler($event)" [ngClass]="{'btnDisabled':data.isNextButtonDisabled}">Next</a></li>
       </ul>
   </div>
 </nav>

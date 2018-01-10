@@ -3,6 +3,8 @@ import { AppRoutersModule } from './app.router';
 import { NgModule, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 
+import { HttpClientModule } from '@angular/common/http';
+import { Http, HttpModule } from '@angular/http';
 
 import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
@@ -12,11 +14,16 @@ import { JsonParserService } from './json-parser.service';
 
 import 'rxjs/add/operator/filter';
 
+import { DataService } from './data.service';
+
 @NgModule({
 
     imports:[
         BrowserModule,
-        AppRoutersModule        
+        AppRoutersModule,
+        HttpClientModule,
+        HttpModule
+
     ],
     exports:[]
 })
@@ -30,10 +37,12 @@ export class AppControllerModule {
     public topicTitle;
     public cPageData = '01|01';
     public pageStatusList = [];
-    public isNextButtonDisabled = false;
-    public isPrevButtonDisabled = true;
+    //public isNextButtonDisabled = false;
+    //public isPrevButtonDisabled = true;
     
-    constructor(private router:Router, private jsonParser:JsonParserService) {
+    constructor(private router:Router, private jsonParser:JsonParserService, private data:DataService) {
+        this.data.isNextButtonDisabled = false;
+        this.data.isPrevButtonDisabled = true;
         this.init();               
     }
     
@@ -78,7 +87,7 @@ export class AppControllerModule {
     {
         if(target.name == "NextBtn")
         {
-            this.isNextButtonDisabled = false;
+            this.data.isNextButtonDisabled = false;
             this.currentPage = this.currentPage + 1;
             if(this.currentPage >= this.getTotalPagesInTopic())
             {
@@ -93,7 +102,7 @@ export class AppControllerModule {
         }
         else
         {
-            this.isPrevButtonDisabled = false;
+            this.data.isPrevButtonDisabled = false;
             this.currentPage = this.currentPage - 1;
             if (this.currentPage < 0) 
             {
@@ -106,26 +115,32 @@ export class AppControllerModule {
     loadScreen(_topic, _page)
     {
         let path:string = "";
-        //console.log(this.currentPage+' [currentPage] '+this.currentPageNumber);
+        this.currentTopic = _topic;
+        this.currentPage = _page;
+        this.getTotalPagesCount();
+        this.getCurrentPagesCount();
+        //console.log(this.currentPage+' [currentPage] '+this.currentPageNumber+' [totalPages] '+this.totalPages);
         path = '/container/topic_'+this.pad(_topic+1)+'/page'+this.pad(_page+1);
         this.router.navigate([path]);
         if(this.currentPageNumber <= 1)
         {
-            this.isPrevButtonDisabled = true;
+            this.data.isPrevButtonDisabled = true;
         }
         else
         {
-            this.isPrevButtonDisabled = false; 
+            this.data.isPrevButtonDisabled = false; 
         }
         if(this.currentPageNumber >= this.totalPages)
         {
-            this.isNextButtonDisabled = true;
+            this.data.isNextButtonDisabled = true;
         }
         else
         {
-            this.isNextButtonDisabled = false;
+            this.data.isNextButtonDisabled = false;
         }
-        //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.isPrevButtonDisabled+' <<>> '+this.isNextButtonDisabled);
+        //this.data.currentTest.subscribe(value => this.isNextButtonDisabled = value)
+        //this.data.setValue(this.isNextButtonDisabled);
+        //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.data.isPrevButtonDisabled.valueOf()+' <<>> '+this.data.isNextButtonDisabled.valueOf());
         this.markVisitedPage();
     }
     markVisitedPage()

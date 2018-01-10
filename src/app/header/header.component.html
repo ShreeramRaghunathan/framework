@@ -4,10 +4,10 @@
       <div class="menu-container">
           <div class="menu-page-list">
               <ul class="module-list nav nav-list">
-                  <li *ngFor="let topicItem of menuObj.topics; let i = index">
+                  <li *ngFor="let topicItem of menuObj.topics; let i = index" (click)="onMenuTopicsClickHandler($event, i)" attr.data-expand="{{topicItem.expand}}">
                     <label>{{topicItem.name}}
                         <ul class="nav nav-list tree">
-                            <li *ngFor="let pageItem of topicItem.pages">
+                            <li *ngFor="let pageItem of topicItem.pages; let j = index" (click)="onMenuPageClickHandler($event, i, j)">
                                 <label>{{pageItem.name}}</label>
                             </li>
                         </ul>

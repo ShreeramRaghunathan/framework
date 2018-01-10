@@ -1,6 +1,10 @@
 import { JsonParserService } from './../json-parser.service';
 import { AppControllerModule } from './../app.controller';
 import { Component, OnInit } from '@angular/core';
+/*import { CollapseDirective } from './collapse.directive';*/
+import { DataService } from './../data.service';
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +12,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  
   private isMenuOpen:Boolean
   private menuObj:any;
-  constructor(private _controller:AppControllerModule, private jsonParser:JsonParserService) { }
+  public isCollapsedContent:boolean = true;
+  public isCollapsedImage:boolean = true;
+  constructor(private _controller:AppControllerModule, private jsonParser:JsonParserService, private data:DataService) { }
 
   ngOnInit() {
     this.isMenuOpen = false;
@@ -28,7 +35,27 @@ export class HeaderComponent implements OnInit {
   
   onMenuHandler()
   {
-    console.log('Menu clicked');
+    this.toggleMenu();
+    setTimeout(() => {
+      $('.menu-page-list .tree').hide();
+    },5)
+  }
+  onMenuTopicsClickHandler(event, pTopic)
+  {
+
+    //console.log($(event.target).parent().children('.tree'))
+    //this.isCollapsedContent = !this.isCollapsedContent
+    if($(event.target).parent().attr("data-expand") != "false")
+    {
+      $(event.target).children('.tree').slideToggle();
+      $('.menu-page-list .tree').not($(event.target).children('.tree')).slideUp();;
+      //$('.menu-page-list .tree').not($(event.target).parent().next('.tree')).slideUp();
+    }
+  }
+  onMenuPageClickHandler(event, pTopic, pPage)
+  {
+    this._controller.loadScreen(pTopic, pPage);
+
     this.toggleMenu();
   }
   toggleMenu()

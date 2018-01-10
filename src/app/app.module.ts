@@ -1,8 +1,9 @@
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DataService } from './data.service';
 
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { JsonParserService } from './json-parser.service';
 
 import { AppRoutersModule } from './app.router';
 import { AppControllerModule } from './app.controller';
+/*import { CollapseDirective } from './header/collapse.directive';*/
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { AppControllerModule } from './app.controller';
     HttpClientModule
   ],
   providers: [
-    JsonParserService
+    JsonParserService,
+    DataService
   ],
   bootstrap: [
     AppComponent,

@@ -11,7 +11,7 @@ import { DataService } from './../data.service';
 
 export class FooterComponent implements OnInit {
 
-  constructor(private router:Router, private _controller:AppControllerModule, private data:DataService) { }
+  constructor(private router:Router, private _controller:AppControllerModule, private globalData:DataService) { }
 
   ngOnInit() {
     /*this.router.events.filter(event => event instanceof NavigationStart).subscribe(event => {
@@ -19,10 +19,7 @@ export class FooterComponent implements OnInit {
       this.isBackBtnActive = this._controller.isPrevButtonDisabled;
     })*/
   }
-  footerTest()
-  {
-    console.log('Footer test')
-  }
+  
   onNextHandler(event)
   {
     //console.log('footer '+event.currentTarget)

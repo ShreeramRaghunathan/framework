@@ -1,0 +1,73 @@
+{
+
+	"contents": {
+		"imageList": ["image1.jpg", "image2.jpg"],
+		"transcript":"<p>No problem. Now, Ahmed let’s see what you have learned about business courtesies. </p>",
+		"pageHeading": "Overview",
+		"pages": [{
+			"pageHeading": "Overview",
+			"pageBG": "../course_images/common_bg/scrn_02_01/scrn_02_01_img_2.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 1
+		}, {
+			"pageHeading": "Overview",
+			"pageBG": "../course_images/common_bg/scrn_02_01/scrn_02_01_img_3.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>Hi Ahmed, it's a pleasure to meet you. You and I will look at what working together means in the ADNOC Group. </p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 2
+		}, {
+			"pageHeading": "Overview",
+			"pageBG": "../course_images/common_bg/scrn_02_01/scrn_02_01_img_3.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>How about we go through this in my office? </p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 3
+		}, {
+			"pageHeading": "Overview",
+			"pageBG": "../course_images/common_bg/scrn_02_01/scrn_02_01_img_1.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>You and Ahmed carry on, I will join you in a few minutes. </p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 4
+		}, {
+			"pageHeading": "Overview",
+			"pageBG": "../course_images/common_bg/scrn_02_01/scrn_02_01_img_1.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>Okay Reem, see you soon. </p>",
+			"paragraphText_1": "<p>No problem. Now, Ahmed let’s see what you have learned about business courtesies. </p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 5
+		}],
+		
+		"help_text": "Help Richard decide if the gifts listed here are appropriate or not.",
+		"instruction_text": "Drag and drop each option into the correct box. "
+	}
+}

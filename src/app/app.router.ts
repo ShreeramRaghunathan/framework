@@ -1,29 +1,34 @@
 import { RouterModule, Routes, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { Page01Component } from './container/topic_01/page01/page01.component';
-import { Page02Component } from './container/topic_01/page02/page02.component';
+import { LanguageselectionComponent } from './container/assets/languageselection/languageselection.component';
+import { Page01Component } from './container/screens/topic_01/page01/page01.component';
+import { Page02Component } from './container/screens/topic_01/page02/page02.component';
 
 const appRoutes:Routes = [
     {
         path: '',
-        redirectTo:'container/topic_01/page01',
+        redirectTo:'container/screens/topic_01/page01',
         pathMatch:'full'
     },
     {
-        path:'container/topic_01/page01',
+        path:'container/assets/languageselection',
+        component:LanguageselectionComponent
+    },
+    {
+        path:'container/screens/topic_01/page01',
         component:Page01Component
     },
     {
-        path:'container/topic_01/page02',
+        path:'container/screens/topic_01/page02',
         component:Page02Component
     },
     {
-        path:'container/topic_02/page01',
+        path:'container/screens/topic_02/page01',
         component:Page01Component
     },
     {
-        path:'container/topic_02/page02',
+        path:'container/screens/topic_02/page02',
         component:Page02Component
     }
 ]

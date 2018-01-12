@@ -1,6 +1,6 @@
 import { JsonParserService } from './../json-parser.service';
 import { AppControllerModule } from './../app.controller';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 /*import { CollapseDirective } from './collapse.directive';*/
 import { DataService } from './../data.service';
 
@@ -17,20 +17,21 @@ export class HeaderComponent implements OnInit {
   private menuObj:any;
   public isCollapsedContent:boolean = true;
   public isCollapsedImage:boolean = true;
-  constructor(private _controller:AppControllerModule, private jsonParser:JsonParserService, private data:DataService) { }
+  constructor(private _controller:AppControllerModule, private jsonParser:JsonParserService, private globalData:DataService) { }
 
   ngOnInit() {
     this.isMenuOpen = false;
-    this.loadCourseMenu();
+    setTimeout(() => {this.loadCourseMenu();}, 0);
   }
   loadCourseMenu()
   {
-      this.jsonParser.getDataRequest("../assets/courseMenu/courseMenu.json").subscribe(result => this.getMenuData(result))
+    this.jsonParser.getDataRequest("../assets/course_content/"+this.globalData.LanguageSelected+"/courseMenu.json").subscribe(result => this.getMenuData(result))
   }
   getMenuData(data)
   {
     this.menuObj = data;
     this._controller.getCourseMenuData(data);
+    console.log(this.globalData.LanguageSelected);
   }
   
   onMenuHandler()
@@ -38,7 +39,7 @@ export class HeaderComponent implements OnInit {
     this.toggleMenu();
     setTimeout(() => {
       $('.menu-page-list .tree').hide();
-    },5)
+    },1)
   }
   onMenuTopicsClickHandler(event, pTopic)
   {

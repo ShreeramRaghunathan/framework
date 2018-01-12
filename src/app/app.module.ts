@@ -10,12 +10,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { FooterComponent } from './footer/footer.component';
-import { Page01Component } from './container/topic_01/page01/page01.component';
-import { Page02Component } from './container/topic_01/page02/page02.component';
+import { Page01Component } from './container/screens/topic_01/page01/page01.component';
+import { Page02Component } from './container/screens/topic_01/page02/page02.component';
 import { JsonParserService } from './json-parser.service';
 
 import { AppRoutersModule } from './app.router';
 import { AppControllerModule } from './app.controller';
+import { LanguageselectionComponent } from './container/assets/languageselection/languageselection.component';
+import { IntroComponent } from './container/assets/intro/intro.component';
+
 /*import { CollapseDirective } from './header/collapse.directive';*/
 
 
@@ -26,7 +29,9 @@ import { AppControllerModule } from './app.controller';
     ContainerComponent,
     FooterComponent,
     Page01Component,
-    Page02Component
+    Page02Component,
+    LanguageselectionComponent,
+    IntroComponent
   ],
   imports: [
     BrowserModule,

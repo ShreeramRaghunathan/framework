@@ -1,0 +1,9 @@
+{
+  "imageList":[],
+  "contents": {
+    "pageBG":"../course_images/common_bg/scrn_01_01/scrn_01_01.jpg",
+    "pageHeading" : "Course Objectives",
+    "paragraph_text1_1": "<p class='animated fadeIn _2'>By the end of this course, you will:</p><ul><li class='animated fadeIn _3'>Understand the core principles of the ADNOC Group's Code of Conduct</li><li class='animated fadeIn _4'>Be ready to conduct ADNOC Group's business ethically and with integrity</li><li class='animated fadeIn _5'>Avoid risks posed by bribery and corruption</li><li class='animated fadeIn _6'> Manage potential conflict of interests </li><li class='animated fadeIn _7'>Know how to safeguard assets of the ADNOC Group</li></ul>",
+	"transcript": "<p>Let's look at the objectives of this course.</p>"
+  }
+}

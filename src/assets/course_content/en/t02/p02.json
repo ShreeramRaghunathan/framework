@@ -1,0 +1,72 @@
+{
+
+	"contents": {
+		"imageList": ["image1.jpg", "image2.jpg"],
+		"pageHeading": "Treating Each Other with Respect",
+		"pages": [{
+			"pageHeading": "Treating Each Other with Respect",
+			"pageBG": "../course_images/common_bg/scrn_02_02/scrn_02_02_img_1.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>So Ahmed, in the ADNOC Group we are committed to the well-being of our people.</p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 1
+		
+		}, {
+			"pageHeading": "Treating Each Other with Respect",
+			"pageBG": "../course_images/common_bg/scrn_02_02/scrn_02_02_img_3.jpg",
+			"number_of_buttons": 1,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>You see, in the ADNOC Group, we keep five best practices in mind. Following these ensures an environment that is inclusive. </p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 2
+		}, {
+			"pageHeading": "Treating Each Other with Respect",
+			"pageBG": "../course_images/common_bg/scrn_02_02/scrn_02_02_img_4.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>As you can see, the ADNOC Group strives to provide a working environment that respects diversity and looks after its people.</p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 3
+		}, {
+			"pageHeading": "Treating Each Other with Respect",
+			"pageBG": "../course_images/common_bg/scrn_02_02/scrn_02_02_img_5.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>And I understand that it is every employee’s responsibility to foster that environment.</p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 4
+		}, {
+			"pageHeading": "Treating Each Other with Respect",
+			"pageBG": "../course_images/common_bg/scrn_02_02/scrn_02_02_img_6.jpg",
+			"number_of_buttons": 0,
+			"returnText": "Scenario Home Screen",
+			"paragraphText": "<p>That's right. Let's try a little exercise here. You will see four situations involving employee interactions. I want you to decide how you feel about each interaction. </p>",
+			"imgBox": {
+				"image1": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img01.png' />",
+				"image2": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img02.png' />",
+				"image3": "<img class='img-responsive' src='../course_images/pages/m01/t02/p03/img03.png' />"
+			},
+			"id": 5
+		}],
+		
+		"help_text": "Help Richard decide if the gifts listed here are appropriate or not.",
+		"instruction_text": "Drag and drop each option into the correct box. "
+	}
+}

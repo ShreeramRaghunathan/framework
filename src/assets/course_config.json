@@ -1,0 +1,42 @@
+{
+    "CourseBrandType": 0,
+    "CourseBrandNameImg": "../course_images/interface/logo_png24.png",
+    "CourseName": "Project Name",
+    "UIControllers":  {
+        "Next": 1,
+        "Back": 1,
+        "Menu": 1,
+        "Help": 1,
+        "PagCounter": 1,
+        "Glossary": 0,
+        "Transcript": 0,
+        "Resource": 1,
+        "AudioController": 0,
+        "PlayPauseController": 0,
+        "CourseProgress": 0,
+		"ExitButton":0
+    },
+    "courseSettings": {
+        "appType": "standalone",
+        "hasCourseIntro": true,
+        "hasLangSelectionPage": true,
+		"defaultLanguage": "en",
+        "hasRoleSelectionPage": false,
+        "hasBookMarking": true,
+        "pageCountType": "coursewise",
+        "visualMenu": true,
+        "skipVisualMenu":false,
+        "menuDepth": 2,
+        "forceNavigation": false,
+        "hasAudio": true,
+		"hasAssessmentIntro": true,
+        "hasAssessment": true,
+        "assessmentSection": 6,
+        "hasRandomization": true,
+        "hasPooling": true,
+		"totalQuestions":21,
+        "availableQuestions": 10,
+		"maxAssesmentAttempt":1000,
+        "masteryScore": 70
+    }
+}

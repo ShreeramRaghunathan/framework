@@ -29,6 +29,7 @@ import { DataService } from './data.service';
 })
 
 export class AppControllerModule {
+    public appController: AppControllerModule;
     public currentTopic:number;
     public currentPage:number;
     public totalPages:number;
@@ -37,20 +38,36 @@ export class AppControllerModule {
     public topicTitle;
     public cPageData = '01|01';
     public pageStatusList = [];
+
+    private CourseConfig;
     //public isNextButtonDisabled = false;
     //public isPrevButtonDisabled = true;
     
-    constructor(private router:Router, private jsonParser:JsonParserService, private data:DataService) {
-        this.data.isNextButtonDisabled = false;
-        this.data.isPrevButtonDisabled = true;
+    constructor(private router:Router, private jsonParser:JsonParserService, private globalData:DataService) {
+        this.globalData.mainControllerInstance = this;
+        this.globalData.isNextButtonDisabled = false;
+        this.globalData.isPrevButtonDisabled = true;
         this.init();               
     }
     
     init()
     {
-        //this.loadCourseMenu();
+        this.getConfigData();
         this.router.events.filter(event => event instanceof NavigationStart).subscribe(event => {
             //console.log(event)
+            let tURL = '';
+            console.log(this.CourseConfig.AvailableAssessmentQuestion)
+            if(this.currentTopic == this.CourseConfig.AvailableAssessmentQuestion)
+            {
+
+            }
+            else
+            {
+                tURL = '../assets/course_content/'+this.globalData.LanguageSelected+'/t'+this.pad(this.currentTopic+1)+'/p'+this.pad(this.currentPage+1)+'.json';
+            }
+            this.jsonParser.getDataRequest(tURL).subscribe((data) => {
+                console.log('@@@ ',data)
+            })
             /*if(this.currentTopic != 1)
             {
                 this.isPrevButtonDisabled = false;
@@ -64,9 +81,48 @@ export class AppControllerModule {
             this.getCurrentPagesCount();
         });
     }
-    
+
+    getConfigData()
+    {
+        this.jsonParser.getDataRequest("../assets/course_config.json").subscribe(result => this.onConfigDataSucess(result))
+    }
+
+    onConfigDataSucess(data)
+    {
+        this.CourseConfig = {
+            CourseName: data.CourseName,
+            CourseBrand: data.CourseBrandName,
+            BrandFont: data.CourseBrandFontSize,
+            LogoPath: data.CourseBrandNameImg,
+            AppType: data.courseSettings.appType,
+            VisualMenu: data.courseSettings.visualMenu,
+            SkipVisualmenu: data.courseSettings.skipVisualMenu,
+            MenuDepth: data.courseSettings.menuDepth,
+            UIControls: data.UIControllers,
+            ForceNavigation: data.courseSettings.forceNavigation,
+            HasAssessment:data.courseSettings.hasAssessment,
+            AssessmentSection:data.courseSettings.assessmentSection,
+            TotalAssesmentQuestions: data.courseSettings.totalQuestions,
+            AvailableAssessmentQuestion : data.courseSettings.availableQuestions,
+            IsRandomized: data.courseSettings.hasRandomization,
+            HasPooling: data.courseSettings.hasPooling,
+            MasteryScore: data.courseSettings.masteryScore,
+            HasAssesmentIntro: data.courseSettings.hasAssessmentIntro,
+            MaxAssesmentAttempt: data.courseSettings.maxAssesmentAttempt,
+            HasLangSelectionPage: data.courseSettings.hasLangSelectionPage,
+            LanguageSelected: data.courseSettings.defaultLanguage,
+            HasIntroPage: data.courseSettings.hasCourseIntro,
+            HasAudio: data.courseSettings.hasAudio,
+            PageCount: data.courseSettings.pageCountType
+        }
+        this.globalData.CourseConfig = this.CourseConfig;
+        //console.log(this.CourseConfig.HasAssesmentIntro)
+        this.globalData.LanguageSelected = this.CourseConfig.LanguageSelected;
+
+    }
     public getCourseMenuData(data)
     {
+        let path:string = "";
         this.CourseMenu = data;
         this.currentTopic = 0;
         this.currentPage = 0;
@@ -81,13 +137,34 @@ export class AppControllerModule {
                 this.pageStatusList[i][j] = "0";
             }
         }
+        if(this.CourseConfig.HasLangSelectionPage)
+        {
+            path = '/container/assets/languageselection';
+            this.router.navigate([path]);
+        }
+        else
+        {
+            this.loadScreen(this.currentTopic, this.currentPage);
+        }
+        console.log(this.CourseConfig.HasLangSelectionPage)
+        //this.loadScreen(this.currentTopic, this.currentPage);
+    }
+    startcourse()
+    {
+        if(this.globalData.LanguageSelected == 'en')
+        {
+            this.audioAutoPlay();
+        }
+    }
+    audioAutoPlay()
+    {
         this.loadScreen(this.currentTopic, this.currentPage);
     }
     onNextBackHandler(target:any)
     {
         if(target.name == "NextBtn")
         {
-            this.data.isNextButtonDisabled = false;
+            this.globalData.isNextButtonDisabled = false;
             this.currentPage = this.currentPage + 1;
             if(this.currentPage >= this.getTotalPagesInTopic())
             {
@@ -102,7 +179,7 @@ export class AppControllerModule {
         }
         else
         {
-            this.data.isPrevButtonDisabled = false;
+            this.globalData.isPrevButtonDisabled = false;
             this.currentPage = this.currentPage - 1;
             if (this.currentPage < 0) 
             {
@@ -120,27 +197,27 @@ export class AppControllerModule {
         this.getTotalPagesCount();
         this.getCurrentPagesCount();
         //console.log(this.currentPage+' [currentPage] '+this.currentPageNumber+' [totalPages] '+this.totalPages);
-        path = '/container/topic_'+this.pad(_topic+1)+'/page'+this.pad(_page+1);
+        path = '/container/screens/topic_'+this.pad(_topic+1)+'/page'+this.pad(_page+1);
         this.router.navigate([path]);
         if(this.currentPageNumber <= 1)
         {
-            this.data.isPrevButtonDisabled = true;
+            this.globalData.isPrevButtonDisabled = true;
         }
         else
         {
-            this.data.isPrevButtonDisabled = false; 
+            this.globalData.isPrevButtonDisabled = false; 
         }
         if(this.currentPageNumber >= this.totalPages)
         {
-            this.data.isNextButtonDisabled = true;
+            this.globalData.isNextButtonDisabled = true;
         }
         else
         {
-            this.data.isNextButtonDisabled = false;
+            this.globalData.isNextButtonDisabled = false;
         }
-        //this.data.currentTest.subscribe(value => this.isNextButtonDisabled = value)
-        //this.data.setValue(this.isNextButtonDisabled);
-        //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.data.isPrevButtonDisabled.valueOf()+' <<>> '+this.data.isNextButtonDisabled.valueOf());
+        //this.globalData.currentTest.subscribe(value => this.isNextButtonDisabled = value)
+        //this.globalData.setValue(this.isNextButtonDisabled);
+        //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.globalData.isPrevButtonDisabled.valueOf()+' <<>> '+this.globalData.isNextButtonDisabled.valueOf());
         this.markVisitedPage();
     }
     markVisitedPage()

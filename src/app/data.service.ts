@@ -7,6 +7,11 @@ export class DataService {
   isNextButtonDisabled:Boolean;
   isPrevButtonDisabled:Boolean;
 
+  CourseConfig:object = {};
+  LanguageSelected:string = "en";
+
+  mainControllerInstance;
+  
   constructor() { }
 
 }

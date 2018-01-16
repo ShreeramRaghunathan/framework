@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   {
     this.menuObj = data;
     this._controller.getCourseMenuData(data);
-    console.log(this.globalData.LanguageSelected);
+    //console.log(this.globalData.LanguageSelected);
   }
   
   onMenuHandler()
@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
   }
   onMenuPageClickHandler(event, pTopic, pPage)
   {
-    this._controller.loadScreen(pTopic, pPage);
+    this._controller.audioAutoPlay("page", pTopic, pPage);
 
     this.toggleMenu();
   }

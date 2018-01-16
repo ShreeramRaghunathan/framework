@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DataService } from './data.service';
 
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
 import { Http, HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http'
 
@@ -42,7 +44,8 @@ import { IntroComponent } from './container/assets/intro/intro.component';
   ],
   providers: [
     JsonParserService,
-    DataService
+    DataService,
+    Location
   ],
   bootstrap: [
     AppComponent,

@@ -11,6 +11,11 @@ export class DataService {
   LanguageSelected:string = "en";
 
   mainControllerInstance;
+
+  CourseContent;
+  screenType;
+  isAudio;
+  audioFile;
   
   constructor() { }
 

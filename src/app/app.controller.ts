@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutersModule } from './app.router';
 import { NgModule, OnInit } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Http, HttpModule } from '@angular/http';
@@ -43,7 +45,7 @@ export class AppControllerModule {
     //public isNextButtonDisabled = false;
     //public isPrevButtonDisabled = true;
     
-    constructor(private router:Router, private jsonParser:JsonParserService, private globalData:DataService) {
+    constructor(private router:Router, private jsonParser:JsonParserService, private globalData:DataService, private location: Location) {
         this.globalData.mainControllerInstance = this;
         this.globalData.isNextButtonDisabled = false;
         this.globalData.isPrevButtonDisabled = true;
@@ -53,33 +55,6 @@ export class AppControllerModule {
     init()
     {
         this.getConfigData();
-        this.router.events.filter(event => event instanceof NavigationStart).subscribe(event => {
-            //console.log(event)
-            let tURL = '';
-            console.log(this.CourseConfig.AvailableAssessmentQuestion)
-            if(this.currentTopic == this.CourseConfig.AvailableAssessmentQuestion)
-            {
-
-            }
-            else
-            {
-                tURL = '../assets/course_content/'+this.globalData.LanguageSelected+'/t'+this.pad(this.currentTopic+1)+'/p'+this.pad(this.currentPage+1)+'.json';
-            }
-            this.jsonParser.getDataRequest(tURL).subscribe((data) => {
-                console.log('@@@ ',data)
-            })
-            /*if(this.currentTopic != 1)
-            {
-                this.isPrevButtonDisabled = false;
-            }
-            if(this.currentPageNumber >= this.totalPages)
-            {
-                this.isNextButtonDisabled = true;
-            }*/
-            //this.num.test();
-            this.getTotalPagesCount();
-            this.getCurrentPagesCount();
-        });
     }
 
     getConfigData()
@@ -118,7 +93,66 @@ export class AppControllerModule {
         this.globalData.CourseConfig = this.CourseConfig;
         //console.log(this.CourseConfig.HasAssesmentIntro)
         this.globalData.LanguageSelected = this.CourseConfig.LanguageSelected;
+        this.router.events.filter(event => event instanceof NavigationStart).subscribe(event => {
+            //console.log(event)
+            let tURL = '';
+            //console.log('menu .. ',this.location.path())
+            if(this.currentTopic == this.CourseConfig.AvailableAssessmentQuestion)
+            {
 
+            }
+            else
+            {
+                tURL = '../assets/course_content/'+this.globalData.LanguageSelected+'/t'+this.pad(this.currentTopic+1)+'/p'+this.pad(this.currentPage+1)+'.json';
+            }
+            this.jsonParser.getDataRequest(tURL).subscribe((response) => {
+                this.globalData.CourseContent = response.contents;
+                this.globalData.screenType = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].screenType;
+                this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
+                if (this.pageStatusList[this.currentTopic][this.currentPage] != "1")
+                {
+                    /* -- 
+                    if (this.CourseConfig.ForceNavigation)
+                        this.globalData.isNextButtonDisabled = true;
+                    else {
+                        if (this.currentTopic != this.CourseConfig.AssessmentSection-1)
+                            this.globalData.isNextButtonDisabled = false;
+                    }
+                    if(this.currentTopic != this.CourseConfig.AssessmentSection-1){
+                        this.globalData.isPrevButtonDisabled = false;
+                        //console.log(1)
+                    }
+                    */
+                }
+                //console.log('@@@ ',this.CourseConfig.ForceNavigation)
+            })
+            /*if(this.currentTopic != 1)
+            {
+                this.isPrevButtonDisabled = false;
+            }
+            if(this.currentPageNumber >= this.totalPages)
+            {
+                this.isNextButtonDisabled = true;
+            }*/
+            //this.num.test();
+            this.getTotalPagesCount();
+            this.getCurrentPagesCount();
+        });
+
+        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+            //
+            var str:string = this.location.path();
+            var arr = str.split('/');
+            if (arr[arr.length-1] != 'menu' && this.pageStatusList.length > 0) {
+                if(this.CourseConfig.HasAudio) {
+                    this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio || false;
+                    if(this.globalData.isAudio && arr[arr.length-1] != 'languageselection')
+                    {
+                        this.globalData.audioFile.play();
+                    }
+                }
+            }
+        })
     }
     public getCourseMenuData(data)
     {
@@ -139,26 +173,65 @@ export class AppControllerModule {
         }
         if(this.CourseConfig.HasLangSelectionPage)
         {
-            path = '/container/assets/languageselection';
-            this.router.navigate([path]);
+            //path = '/container/assets/languageselection';
+            this.audioAutoPlay("languageselection", null, null);
         }
         else
         {
-            this.loadScreen(this.currentTopic, this.currentPage);
+            this.audioAutoPlay("page", this.currentTopic, this.currentPage);
         }
-        console.log(this.CourseConfig.HasLangSelectionPage)
+        //console.log(this.CourseConfig.HasLangSelectionPage)
         //this.loadScreen(this.currentTopic, this.currentPage);
     }
     startcourse()
     {
         if(this.globalData.LanguageSelected == 'en')
         {
-            this.audioAutoPlay();
+            this.audioAutoPlay('page', this.currentTopic, this.currentPage);
         }
     }
-    audioAutoPlay()
+    audioAutoPlay(pageType, _topic, _page)
     {
-        this.loadScreen(this.currentTopic, this.currentPage);
+        let controllerInstance = this;
+        //console.log('audioAutoPlay :: ', this.location.path(), this.location.path().indexOf("languageselection"))
+        if(this.CourseConfig.HasAudio) {
+            this.globalData.audioFile = document.getElementById('course-audio');
+            this.globalData.audioFile.src = "#";
+            let audioSrc = "";
+            if(pageType=="page") {
+                audioSrc = "../assets/course_audio/"+this.globalData.LanguageSelected+'/t'+this.pad(this.currentTopic+1)+'/p'+this.pad(this.currentPage+1)+".mp3";
+            }else if(pageType == "intro") {
+                audioSrc = "";
+                this.globalData.audioFile.src = audioSrc;
+            }else if(pageType == "languageselection") {
+                audioSrc = "";
+                this.globalData.audioFile.src = audioSrc;
+            }
+            if(_topic != null && _page != null)
+                this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
+            //console.log("_page "+_page)
+            if(pageType == "page" && this.globalData.isAudio && audioSrc != "") {
+                this.globalData.audioFile.src = audioSrc;
+                this.globalData.audioFile.load();
+                this.globalData.audioFile.addEventListener('loadeddata', function(){
+                    //console.log('audioFile::loadeddata ', controllerInstance)
+                    //this.globalData.LoadContent(pageType,pageId)
+                    controllerInstance.loadScreen(pageType, _topic, _page);
+                },false);
+                this.globalData.audioFile.addEventListener('ended', function(){
+
+                })
+                //this.loadScreen(pageType, _topic, _page);
+            } else if(pageType == "languageselection"){
+                this.loadScreen(pageType, null, null);
+            }
+            else if(pageType == "intro") {
+                this.loadScreen(pageType, null, null);
+            }            
+        }
+        else {
+            this.loadScreen(pageType, _topic, _page);
+        }
     }
     onNextBackHandler(target:any)
     {
@@ -187,41 +260,53 @@ export class AppControllerModule {
                 this.currentPage = this.CourseMenu.topics[this.currentTopic].pages.length - 1;
             }
         }
-        this.loadScreen(this.currentTopic, this.currentPage);
+        this.audioAutoPlay("page", this.currentTopic, this.currentPage);
     }
-    loadScreen(_topic, _page)
+    loadScreen(pageType, _topic, _page)
     {
         let path:string = "";
-        this.currentTopic = _topic;
-        this.currentPage = _page;
-        this.getTotalPagesCount();
-        this.getCurrentPagesCount();
-        //console.log(this.currentPage+' [currentPage] '+this.currentPageNumber+' [totalPages] '+this.totalPages);
-        path = '/container/screens/topic_'+this.pad(_topic+1)+'/page'+this.pad(_page+1);
-        this.router.navigate([path]);
-        if(this.currentPageNumber <= 1)
+        if(pageType == "page")
         {
-            this.globalData.isPrevButtonDisabled = true;
+            this.currentTopic = _topic;
+            this.currentPage = _page;
+            this.getTotalPagesCount();
+            this.getCurrentPagesCount();
+            //console.log(this.currentPage+' [currentPage] '+this.currentPageNumber+' [totalPages] '+this.totalPages);
+            path = '/container/screens/topic_'+this.pad(_topic+1)+'/page'+this.pad(_page+1);
+            this.router.navigate([path]);
+            if(this.currentPageNumber <= 1)
+            {
+                this.globalData.isPrevButtonDisabled = true;
+            }
+            else
+            {
+                this.globalData.isPrevButtonDisabled = false; 
+            }
+            if(this.currentPageNumber >= this.totalPages)
+            {
+                this.globalData.isNextButtonDisabled = true;
+            }
+            else
+            {
+                this.globalData.isNextButtonDisabled = false;
+            }
+            //this.globalData.currentTest.subscribe(value => this.isNextButtonDisabled = value)
+            //this.globalData.setValue(this.isNextButtonDisabled);
+            //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.globalData.isPrevButtonDisabled.valueOf()+' <<>> '+this.globalData.isNextButtonDisabled.valueOf());
+            this.markVisitedPage();
         }
-        else
-        {
-            this.globalData.isPrevButtonDisabled = false; 
-        }
-        if(this.currentPageNumber >= this.totalPages)
+        else if(pageType == "languageselection")
         {
             this.globalData.isNextButtonDisabled = true;
+            this.globalData.isPrevButtonDisabled = true;
+            path = '/container/assets/languageselection';
+            this.router.navigate([path]);
         }
-        else
-        {
-            this.globalData.isNextButtonDisabled = false;
-        }
-        //this.globalData.currentTest.subscribe(value => this.isNextButtonDisabled = value)
-        //this.globalData.setValue(this.isNextButtonDisabled);
-        //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.globalData.isPrevButtonDisabled.valueOf()+' <<>> '+this.globalData.isNextButtonDisabled.valueOf());
-        this.markVisitedPage();
     }
     markVisitedPage()
     {
+        this.globalData.screenType = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].screenType;
+        this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
         if(this.totalPages != this.currentPage)
         {
 

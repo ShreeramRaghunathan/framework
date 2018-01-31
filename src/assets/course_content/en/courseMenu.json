@@ -15,6 +15,20 @@
             "screenType": "static",
             "isAudio": true,
             "delay": 1000
+        },
+        {
+            "id": 3,
+            "name": "s3",
+            "screenType": "static",
+            "isAudio": true,
+            "delay": 1000
+        },
+		{
+            "id": 4,
+            "name": "s4",
+            "screenType": "static",
+            "isAudio": false,
+            "delay": 1000
         }
         ]
     },

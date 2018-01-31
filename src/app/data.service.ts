@@ -16,6 +16,8 @@ export class DataService {
   screenType;
   isAudio;
   audioFile;
+  isPaused;
+  deskTop;
   
   constructor() { }
 

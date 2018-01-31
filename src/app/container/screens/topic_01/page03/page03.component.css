@@ -1,0 +1,73 @@
+
+.answers-area {
+    float: left;
+    width: 50%;
+    padding: 0px;
+    margin: 0px;
+    color: #fff;
+    position: absolute;
+    background: #c2c2c2;
+    top: 180px;
+    left: 138px;
+}
+.page-content{
+	padding:0px;
+	overflow: hidden;
+    height: 542px;
+}
+.droppable-item {
+    border: 1px solid #c2c2c2;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px 3px 28px -12px #17272f;
+}
+.bbl-drop {
+    position: absolute;
+    background: #fff;
+    width: 360px;
+    height: 98px;
+    border-radius: 9px;
+    right: 328px;
+    top: 370px;
+    padding: 4px;
+}
+.draggable-item.ui-draggable.ui-draggable-handle.ui-draggable-disabled{
+	color: #000;
+    width: 100%;
+    padding: 10px;
+    height: 100%;
+}
+.droppable-item.ui-droppable.hovered{
+    background: #cacaca;
+    box-shadow: inset 1px -2px 18px 0px rgba(0, 0, 0, 0.6);
+}
+.ui-droppable-disabled .instr{
+	display:none;
+}
+.coln-1{
+    width: 30%;
+    float: left;
+    border-right: 1px solid #8ab2cf;
+    padding: 20px;
+    min-height: 50px;
+    background: #3c7eaf;
+    /*padding-bottom: 10px;/
+    min-height: 50px;
+	/*padding-left: 40px;*/
+}
+.coln-2{
+	width:30%;
+	padding:20px;
+    float:left;
+    border-right: 1px solid #8ab2cf;
+    min-height: 50px;
+    background: #3c7eaf;
+	/*padding-left: 40px;*/
+}
+.coln-3{
+	width:30%;
+	padding:20px;
+	float:left;
+    min-height: 50px;
+    background: #3c7eaf;
+}

@@ -1,8 +1,21 @@
-<nav class="navbar navbar-default">
+<div class="course-footer">
   <div class="container">
       <ul class="nav navbar-nav navbar-right">
-          <li class="nav-link"><a name="BackBtn" id="BackBtn" (click)="onBackHandler($event)" [ngClass]="{'btnDisabled':globalData.isPrevButtonDisabled}">Back</a></li>
-          <li class="nav-link"><a name="NextBtn" id="NextBtn" (click)="onNextHandler($event)" [ngClass]="{'btnDisabled':globalData.isNextButtonDisabled}">Next</a></li>
+          <li class="nav-link" id="replay-container" style="padding:15px;" (click)="onReplayHandler($event)">
+                <img src="../../assets/course_images/interface/replay.png" />
+          </li>
+          <li class="nav-link" id="pause-container" style="padding:15px;" >
+              <!-- <a (click)="onPlayPauseHandler($event)" [ngClass]="{'btnDisabled':globalData.isPaused}">Pause: {{this.globalData.isPaused}}</a> -->
+              <img src="{{globalData.isPaused? '../../assets/course_images/interface/play.png' : '../../assets/course_images/interface/pause.png'}}" (click)="onPlayPauseHandler($event)" [ngClass]="disableAudioBtns('')" class="pause-btn"/>
+          </li>
+          <li class="nav-link" style="padding:15px;">
+              <!-- <a name="BackBtn" id="BackBtn" (click)="onBackHandler($event)" [ngClass]="{'btnDisabled':globalData.isPrevButtonDisabled}">Back</a> -->
+              <img src="../../assets/course_images/interface/prev.png" name="BackBtn" id="BackBtn" (click)="onBackHandler($event)" [ngClass]="{'btnDisabled':globalData.isPrevButtonDisabled}"/>
+           </li>
+          <li class="nav-link" style="padding:15px;">
+              <!-- <a name="NextBtn" id="NextBtn" (click)="onNextHandler($event)" [ngClass]="{'btnDisabled':globalData.isNextButtonDisabled}">Next</a> -->
+              <img src="../../assets/course_images/interface/next.png" name="NextBtn" id="NextBtn" (click)="onNextHandler($event)" [ngClass]="{'btnDisabled':globalData.isNextButtonDisabled}"/>
+          </li>
       </ul>
   </div>
-</nav>
+</div>

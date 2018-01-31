@@ -1,3 +1,11 @@
+.course-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #65666a;
+    height: 48px;
+    z-index: 99;
+}
 .btnDisabled {
     pointer-events:none !important;
     opacity:0.5 !important;

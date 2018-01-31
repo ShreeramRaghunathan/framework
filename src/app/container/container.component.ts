@@ -14,7 +14,7 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
+    //console.log('ngOnInit');
   }
 
   

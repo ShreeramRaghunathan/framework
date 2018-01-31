@@ -17,6 +17,7 @@ import { JsonParserService } from './json-parser.service';
 import 'rxjs/add/operator/filter';
 
 import { DataService } from './data.service';
+//import * as $ from 'jquery';
 
 @NgModule({
 
@@ -49,10 +50,16 @@ export class AppControllerModule {
         this.globalData.mainControllerInstance = this;
         this.globalData.isNextButtonDisabled = false;
         this.globalData.isPrevButtonDisabled = true;
-        this.init();               
+        this.globalData.isPaused = false;
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)){
+            this.globalData.deskTop = false;
+        } else {
+            this.globalData.deskTop = true;
+        }
+        this.init();
     }
     
-    init()
+    private init()
     {
         this.getConfigData();
     }
@@ -93,18 +100,19 @@ export class AppControllerModule {
         this.globalData.CourseConfig = this.CourseConfig;
         //console.log(this.CourseConfig.HasAssesmentIntro)
         this.globalData.LanguageSelected = this.CourseConfig.LanguageSelected;
-        this.router.events.filter(event => event instanceof NavigationStart).subscribe(event => {
+        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
             //console.log(event)
             let tURL = '';
             //console.log('menu .. ',this.location.path())
             if(this.currentTopic == this.CourseConfig.AvailableAssessmentQuestion)
             {
-
+                
             }
             else
             {
                 tURL = '../assets/course_content/'+this.globalData.LanguageSelected+'/t'+this.pad(this.currentTopic+1)+'/p'+this.pad(this.currentPage+1)+'.json';
             }
+            //console.log('tURL ;; ',tURL)
             this.jsonParser.getDataRequest(tURL).subscribe((response) => {
                 this.globalData.CourseContent = response.contents;
                 this.globalData.screenType = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].screenType;
@@ -141,6 +149,7 @@ export class AppControllerModule {
 
         this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
             //
+            this.globalData.isPaused = false;
             var str:string = this.location.path();
             var arr = str.split('/');
             if (arr[arr.length-1] != 'menu' && this.pageStatusList.length > 0) {
@@ -174,7 +183,7 @@ export class AppControllerModule {
         if(this.CourseConfig.HasLangSelectionPage)
         {
             //path = '/container/assets/languageselection';
-            this.audioAutoPlay("languageselection", null, null);
+            this.audioAutoPlay("languageselection");
         }
         else
         {
@@ -190,7 +199,18 @@ export class AppControllerModule {
             this.audioAutoPlay('page', this.currentTopic, this.currentPage);
         }
     }
-    audioAutoPlay(pageType, _topic, _page)
+    reloadAudio()
+    {
+        this.globalData.audioFile.currentTime = 0;
+        this.globalData.audioFile.play();
+        this.globalData.isPaused = false;
+        //
+        //location.reload();
+        //this.router.navigate([this.location.path()]);
+        //
+        $(".pause-btn").removeClass('btnDisabled').addClass('btnEnabled');
+    }
+    audioAutoPlay(pageType, _topic?, _page?)
     {
         let controllerInstance = this;
         //console.log('audioAutoPlay :: ', this.location.path(), this.location.path().indexOf("languageselection"))
@@ -198,7 +218,9 @@ export class AppControllerModule {
             this.globalData.audioFile = document.getElementById('course-audio');
             this.globalData.audioFile.src = "#";
             let audioSrc = "";
-            if(pageType=="page") {
+            if(_topic != null && _page != null) this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
+            //console.log("_topic ",_topic, '_page ', _page, ' isAudio ',this.globalData.isAudio)
+            if(pageType=="page" && this.globalData.isAudio) {
                 audioSrc = "../assets/course_audio/"+this.globalData.LanguageSelected+'/t'+this.pad(this.currentTopic+1)+'/p'+this.pad(this.currentPage+1)+".mp3";
             }else if(pageType == "intro") {
                 audioSrc = "";
@@ -206,35 +228,68 @@ export class AppControllerModule {
             }else if(pageType == "languageselection") {
                 audioSrc = "";
                 this.globalData.audioFile.src = audioSrc;
-            }
-            if(_topic != null && _page != null)
-                this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
-            //console.log("_page "+_page)
-            if(pageType == "page" && this.globalData.isAudio && audioSrc != "") {
+            }            
+            //console.log('pageType ', pageType, 'audioSrc', audioSrc)
+            if(pageType == "page" && this.globalData.isAudio) {
+                let isAudioLoaded = false;
                 this.globalData.audioFile.src = audioSrc;
                 this.globalData.audioFile.load();
                 this.globalData.audioFile.addEventListener('loadeddata', function(){
-                    //console.log('audioFile::loadeddata ', controllerInstance)
                     //this.globalData.LoadContent(pageType,pageId)
-                    controllerInstance.loadScreen(pageType, _topic, _page);
+                    if(!isAudioLoaded)
+                    {
+                        isAudioLoaded = true;
+                        controllerInstance.loadScreen(pageType, _topic, _page);
+                    }
                 },false);
                 this.globalData.audioFile.addEventListener('ended', function(){
-
+                    controllerInstance.audioFinishedPlaying();
+                    $(".pause-btn").removeClass('btnEnabled').addClass('btnDisabled');
                 })
                 //this.loadScreen(pageType, _topic, _page);
-            } else if(pageType == "languageselection"){
-                this.loadScreen(pageType, null, null);
+            } else if(pageType == "page" && !this.globalData.isAudio && audioSrc == ""){
+                this.loadScreen(pageType, _topic, _page);
+            }
+            else if(pageType == "languageselection"){
+                this.loadScreen(pageType);
             }
             else if(pageType == "intro") {
-                this.loadScreen(pageType, null, null);
+                this.loadScreen(pageType);
             }            
         }
         else {
             this.loadScreen(pageType, _topic, _page);
         }
     }
+    audioFinishedPlaying()
+    {
+        this.globalData.screenType = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].screenType;
+        if(this.globalData.screenType != "interactivity")
+        {
+            this.markVisitedPage();
+        }
+    }
+    togglePlay()
+    {
+        this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
+        if(this.globalData.isAudio)
+        {
+            if(this.globalData.isPaused)
+            {
+                this.globalData.audioFile.play();
+                this.globalData.isPaused = false;
+            } else {
+                this.globalData.audioFile.pause();
+                this.globalData.isPaused = true;
+            }
+        }
+    }
     onNextBackHandler(target:any)
     {
+        if(this.globalData.isAudio)
+        {
+            $(".pause-btn").removeClass('btnDisabled').addClass('btnEnabled');
+        }
         if(target.name == "NextBtn")
         {
             this.globalData.isNextButtonDisabled = false;
@@ -260,9 +315,10 @@ export class AppControllerModule {
                 this.currentPage = this.CourseMenu.topics[this.currentTopic].pages.length - 1;
             }
         }
+        //console.log('Next back ')
         this.audioAutoPlay("page", this.currentTopic, this.currentPage);
     }
-    loadScreen(pageType, _topic, _page)
+    loadScreen(pageType, _topic?, _page?)
     {
         let path:string = "";
         if(pageType == "page")
@@ -293,6 +349,7 @@ export class AppControllerModule {
             //this.globalData.currentTest.subscribe(value => this.isNextButtonDisabled = value)
             //this.globalData.setValue(this.isNextButtonDisabled);
             //console.log(this.currentPageNumber+' :: '+this.totalPages+' @@ '+this.globalData.isPrevButtonDisabled.valueOf()+' <<>> '+this.globalData.isNextButtonDisabled.valueOf());
+            $(".pause-btn").removeClass('btnDisabled').addClass('btnEnabled');
             this.markVisitedPage();
         }
         else if(pageType == "languageselection")
@@ -301,6 +358,7 @@ export class AppControllerModule {
             this.globalData.isPrevButtonDisabled = true;
             path = '/container/assets/languageselection';
             this.router.navigate([path]);
+            $(".pause-btn").removeClass('btnEnabled').addClass('btnDisabled');
         }
     }
     markVisitedPage()
@@ -309,7 +367,7 @@ export class AppControllerModule {
         this.globalData.isAudio = this.CourseMenu.topics[this.currentTopic].pages[this.currentPage].isAudio;
         if(this.totalPages != this.currentPage)
         {
-
+            
         }
         this.pageStatusList[this.currentTopic][this.currentPage] = "1";
         this.updateCourseProgress();

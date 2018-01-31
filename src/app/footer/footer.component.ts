@@ -19,7 +19,14 @@ export class FooterComponent implements OnInit {
       this.isBackBtnActive = this._controller.isPrevButtonDisabled;
     })*/
   }
-  
+  onReplayHandler(event)
+  {
+    this._controller.reloadAudio();
+  }
+  onPlayPauseHandler(event)
+  {
+    this._controller.togglePlay()
+  }
   onNextHandler(event)
   {
     //console.log('footer '+event.currentTarget)
@@ -29,5 +36,20 @@ export class FooterComponent implements OnInit {
   {
     //console.log('footer '+event.currentTarget)
     this._controller.onNextBackHandler(event.currentTarget)    
+  }
+  disableAudioBtns(_btnName)
+  {
+    if(!this.globalData.isAudio)
+    {
+      return 'btnDisabled';
+    }
+    else {
+      if(_btnName === "audio" && !this.globalData.deskTop)
+      {
+        return 'btnDisabled';
+      } else {
+        return 'btnEnabled';
+      }
+    }
   }
 }

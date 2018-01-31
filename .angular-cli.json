@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-		"app/animate.css",
+        "app/animate.css",
+        "app/stagger.css",        
         "styles.css"
       ],
       "scripts": [],

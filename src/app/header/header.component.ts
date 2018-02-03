@@ -4,7 +4,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 /*import { CollapseDirective } from './collapse.directive';*/
 import { DataService } from './../data.service';
 
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 
 @Component({
   selector: 'app-header',

@@ -1,0 +1,72 @@
+#question-text {
+    width: 650px;
+    padding-left: 0;
+    margin-top: 20px;
+    padding-top: 6px;
+    margin-bottom: 0px;
+    float: left;
+}
+
+#question-text li{
+    margin-bottom: 6px;
+    float: left;
+    list-style: none;
+}
+
+#question-text li .scenario{
+    float: left;
+    width: 435px;
+    padding-left: 20px;
+}
+.disableThis{
+	pointer-events:none;
+	opacity:0.7;
+	cursor:default;
+}
+.draggable-item {
+    width: 160px;
+    height: 41px;
+    padding: 5px 10px 10px 10px;
+    padding-bottom: 0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 0 0 0 31px;
+    margin-bottom: 2px;
+}
+
+.droppable-item{
+    width: 160px;
+    height: 41px;
+    padding: 5px 10px 10px 10px;
+    padding-bottom: 0;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 0 0 0 3px;
+    margin-bottom: 0px;
+    box-shadow: inset 1px 1px 6px #000;
+    background: #22629d;
+}
+
+.droppable-item.hovered {
+    background: #aaa;
+}
+
+.draggable-item {
+    color: #fff;
+    cursor: pointer;
+    background: #22629d;
+}
+
+.instr{
+    position: absolute;
+    top: 14px;
+    left:10px;
+    font-size: 12px;
+    color: #cacaca;
+}
+
+.buttons{
+    margin-top: 20px;
+}

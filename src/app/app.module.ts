@@ -23,6 +23,7 @@ import { AppControllerModule } from './app.controller';
 import { LanguageselectionComponent } from './container/assets/languageselection/languageselection.component';
 import { IntroComponent } from './container/assets/intro/intro.component';
 import { DdDragDropType1Directive } from './dd-drag-drop-type1.directive';
+import { DdDragDropOneToOneDirective } from './dd-drag-drop-one-to-one.directive';
 
 
 
@@ -41,7 +42,8 @@ import { DdDragDropType1Directive } from './dd-drag-drop-type1.directive';
     Page04Component,
     LanguageselectionComponent,
     IntroComponent,
-    DdDragDropType1Directive    
+    DdDragDropType1Directive,
+    DdDragDropOneToOneDirective    
   ],
   imports: [
     BrowserModule,

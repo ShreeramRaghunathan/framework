@@ -6,9 +6,9 @@
     "paragraph_text1_1": "<p>Today, you will accompany Reem and Ahmed on their journey through ADNOC's headquarters.</p>",
 	"paragraph_text1_2": "<p>Ahmed has recently joined ADNOC and is scheduled for Code of Conduct training today.</p>",
 	"question":[
-		{"dragText" : "Drag 01", "dropIndex": 1, "dropText":"Appropriate"},
-		{"dragText" : "Drag 02", "dropIndex": 2, "dropText":"Appropriate"},
-		{"dragText" : "Drag 03", "dropIndex": 3, "dropText":"Appropriate"}
+		{"dragText" : "Drag 01", "dropIndex": 1, "dropText":"Appropriate", "id": 1},
+		{"dragText" : "Drag 02", "dropIndex": 2, "dropText":"Appropriate", "id": 2},
+		{"dragText" : "Drag 03", "dropIndex": 3, "dropText":"Appropriate", "id": 3}
 	],
 	"transcript": "<p>Hi, I am Reem, a member of ADNOC's Group Compliance Committee. In this course on the ADNOC Group's Code of Conduct, you will accompany Ahmed and me on our journey through the ADNOC Group's headquarters in Abu Dhabi. </p><p>You will meet different members of the ADNOC Group's family and get a firsthand understanding of our Code of Conduct through them.</p><p>But first, let's meet Ahmed.</p><p>Ahmed has recently joined ADNOC and is undergoing training on the ADNOC Group's Code of Conduct along with you.</p>"
   }

@@ -1,3 +1,68 @@
-<p>
-  page04 works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+      <div class="row">
+        <h4 class="page-heading">{{globalData.CourseContent.pageHeading}}</h4>
+      </div>
+      <div class="row">
+        <div ddDragDropOneToOne class="col-xs-12">
+            <div class="row">
+                <ul id="question-text">
+                  <li *ngFor="let item of question" class="containDrags">
+                    <div class="col-xs-6 draggable-item" id="card{{item.dropIndex}}" attr.data-number='{{ item.dropIndex }}'>{{item.dragText}}</div>
+                    <div class="col-xs-6 droppable-item" id="target{{item.id}}" attr.data-number='{{ item.id }}'><p class='instr'>Drop here..</p></div>
+                  </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="buttons">
+                        <button class="btn btn-lg btn-primary" [ngClass]="{'disableThis':ddDragDropOneToOne.isSubmitDisabled}" (click)="onSubmitHandler()">SUBMIT</button>	
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+<!--
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <h4 class="page-heading">{{globalData.CourseContent.pageHeading}}</h4>
+        </div>
+        <div class="row">
+            <div ddDragDropType1 class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12"> 
+                                <div class="answers-area">
+                                    <div class="coln-1">
+                                        <p id="card1" class="draggable-item" attr.data-number='{{ answer1 }}'>{{ question1 }}</p>
+                                    </div>
+                                    <div class="coln-2">
+                                        <p id="card2" class="draggable-item" attr.data-number='{{ answer2 }}'>{{ question2 }}</p>
+                                    </div>
+                                    <div class="coln-3">
+                                        <p id="card3" class="draggable-item" attr.data-number='{{ answer3 }}'>{{ question3 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12"> 
+                                <div class='bbl-drop'>
+                                    <div class="droppable-item" attr.data-number='Appropriate' ></div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="buttons">
+                            <button class="btn btn-lg btn-primary" [ngClass]="{'disableThis':ddDragDropType1.isSubmitDisabled}" (click)="onSubmitHandler()">SUBMIT</button>	
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+-->

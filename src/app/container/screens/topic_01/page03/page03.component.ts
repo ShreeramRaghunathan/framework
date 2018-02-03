@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../../../../data.service';
 import { DdDragDropType1Directive } from './../../../../dd-drag-drop-type1.directive';
 
@@ -8,6 +8,8 @@ import { DdDragDropType1Directive } from './../../../../dd-drag-drop-type1.direc
   styleUrls: ['./page03.component.css']
 })
 export class Page03Component implements OnInit {
+  @ViewChild(DdDragDropType1Directive) ddDragDropType1 = null
+  //
   private pageContent;
   //private question;
   private question1;
@@ -17,7 +19,9 @@ export class Page03Component implements OnInit {
   private answer1;
   private answer2;
   private answer3;
-
+  //
+  private isSubmitDisabled;
+  //
   constructor(private globalData:DataService) {}
 
   ngOnInit() {
@@ -37,7 +41,14 @@ export class Page03Component implements OnInit {
     this.answer1 = this.pageContent.question[0].dropText;
     this.answer2 = this.pageContent.question[1].dropText;
     this.answer3 = this.pageContent.question[2].dropText;
+    //
+    //console.log('######## ',this.globalData.CourseContent.pageHeading)
   }
 
+  onSubmitHandler()
+  {
+    
+    this.ddDragDropType1.checkAnswer();
+  }
 
 }

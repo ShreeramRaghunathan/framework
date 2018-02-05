@@ -6,6 +6,7 @@ import { Page01Component } from './container/screens/topic_01/page01/page01.comp
 import { Page02Component } from './container/screens/topic_01/page02/page02.component';
 import { Page03Component } from './container/screens/topic_01/page03/page03.component';
 import { Page04Component } from './container/screens/topic_01/page04/page04.component';
+import { Page05Component } from './container/screens/topic_01/page05/page05.component';
 
 const appRoutes:Routes = [
     {
@@ -32,6 +33,10 @@ const appRoutes:Routes = [
     {
         path:'container/screens/topic_01/page04',
         component:Page04Component
+    },
+    {
+        path:'container/screens/topic_01/page05',
+        component:Page05Component
     },
     {
         path:'container/screens/topic_02/page01',

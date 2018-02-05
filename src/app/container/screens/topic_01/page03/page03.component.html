@@ -11,13 +11,13 @@
                             <div class="col-xs-12"> 
                                 <div class="answers-area">
                                     <div class="coln-1">
-                                        <p id="card1" class="draggable-item" attr.data-number='{{ answer1 }}'>{{ question1 }}</p>
+                                        <p id="card1" class="draggable-item" attr.data-number='{{ answer1 }}' (mousedown)="$event.stopPropagation();" (touchmove)="ddDragDropType1.touchHandler($event)" (touchstart)="ddDragDropType1.touchHandler($event)" (touchend)="ddDragDropType1.touchHandler($event)">{{ question1 }}</p>
                                     </div>
                                     <div class="coln-2">
-                                        <p id="card2" class="draggable-item" attr.data-number='{{ answer2 }}'>{{ question2 }}</p>
+                                        <p id="card2" class="draggable-item" attr.data-number='{{ answer2 }}' (mousedown)="$event.stopPropagation();" (touchmove)="ddDragDropType1.touchHandler($event)" (touchstart)="ddDragDropType1.touchHandler($event)" (touchend)="ddDragDropType1.touchHandler($event)">{{ question2 }}</p>
                                     </div>
                                     <div class="coln-3">
-                                        <p id="card3" class="draggable-item" attr.data-number='{{ answer3 }}'>{{ question3 }}</p>
+                                        <p id="card3" class="draggable-item" attr.data-number='{{ answer3 }}' (mousedown)="$event.stopPropagation();" (touchmove)="ddDragDropType1.touchHandler($event)" (touchstart)="ddDragDropType1.touchHandler($event)" (touchend)="ddDragDropType1.touchHandler($event)">{{ question3 }}</p>
                                     </div>
                                     <!--<p id="card2" class="draggable-item">{{globalData.CourseContent.question[1].dragText}}</p>
                                     <p id="card3" class="draggable-item">{{globalData.CourseContent.question[2].dragText}}</p> -->

@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-xs-12">
+      <div class="row">
+        <h4 class="page-heading">{{globalData.CourseContent.pageHeading}}</h4>
+      </div>
+      <div class="row">
+        <div ddDragDropAppropriate>
+          <div class="row">
+            <div class="col-xs-6">
+              <ul id="question-text">
+                  <li *ngFor="let item of question" class="draggable-item" id="card{{item.id}}" attr.data-target={{item.do}} attr.data-number={{item.id}} (mousedown)="$event.stopPropagation();" (touchmove)="ddDragDropAppropriate.touchHandler($event)" (touchstart)="ddDragDropAppropriate.touchHandler($event)" (touchend)="ddDragDropAppropriate.touchHandler($event)">
+                      {{item.dragText}}
+                  </li>
+              </ul>
+            </div>
+            <div class="col-xs-6">
+              <div class="dropAreas">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <p class='head-do'><b>Appropriate</b></p>
+                    <div class="drog-area-do drag-items" id="true">
+                        <div class="droppable-item" id="target1"></div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <p class='head-dont'><b>Inappropriate</b></p>
+                    <div class="drog-area-dont drag-items" id="false">
+                        <div class="droppable-item" id="target2"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="buttons">
+                  <button class="btn btn-lg btn-primary" [ngClass]="{'disableThis':ddDragDropAppropriate.isSubmitDisabled}" (click)="onSubmitHandler()">SUBMIT</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

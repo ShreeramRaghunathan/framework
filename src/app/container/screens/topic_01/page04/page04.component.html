@@ -8,7 +8,7 @@
             <div class="row">
                 <ul id="question-text">
                   <li *ngFor="let item of question" class="containDrags">
-                    <div class="col-xs-6 draggable-item" id="card{{item.dropIndex}}" attr.data-number='{{ item.dropIndex }}'>{{item.dragText}}</div>
+                    <div class="col-xs-6 draggable-item" id="card{{item.dropIndex}}" attr.data-number='{{ item.dropIndex }}' (mousedown)="$event.stopPropagation();" (touchmove)="ddDragDropOneToOne.touchHandler($event)" (touchstart)="ddDragDropOneToOne.touchHandler($event)" (touchend)="ddDragDropOneToOne.touchHandler($event)">{{item.dragText}}</div>
                     <div class="col-xs-6 droppable-item" id="target{{item.id}}" attr.data-number='{{ item.id }}'><p class='instr'>Drop here..</p></div>
                   </li>
                 </ul>

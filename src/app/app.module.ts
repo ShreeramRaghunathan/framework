@@ -16,6 +16,7 @@ import { Page01Component } from './container/screens/topic_01/page01/page01.comp
 import { Page02Component } from './container/screens/topic_01/page02/page02.component';
 import { Page03Component } from './container/screens/topic_01/page03/page03.component';
 import { Page04Component } from './container/screens/topic_01/page04/page04.component';
+import { Page05Component } from './container/screens/topic_01/page05/page05.component';
 import { JsonParserService } from './json-parser.service';
 
 import { AppRoutersModule } from './app.router';
@@ -24,8 +25,7 @@ import { LanguageselectionComponent } from './container/assets/languageselection
 import { IntroComponent } from './container/assets/intro/intro.component';
 import { DdDragDropType1Directive } from './dd-drag-drop-type1.directive';
 import { DdDragDropOneToOneDirective } from './dd-drag-drop-one-to-one.directive';
-
-
+import { DdDragDropAppropriateDirective } from './dd-drag-drop-appropriate.directive';
 
 /*import { CollapseDirective } from './header/collapse.directive';*/
 
@@ -40,10 +40,12 @@ import { DdDragDropOneToOneDirective } from './dd-drag-drop-one-to-one.directive
     Page02Component,
     Page03Component,
     Page04Component,
+    Page05Component,
     LanguageselectionComponent,
     IntroComponent,
     DdDragDropType1Directive,
-    DdDragDropOneToOneDirective    
+    DdDragDropOneToOneDirective,
+    DdDragDropAppropriateDirective        
   ],
   imports: [
     BrowserModule,
